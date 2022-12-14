@@ -68,9 +68,7 @@ server= function(input, output, session){
 
 
   query_modal <- modalDialog(
-    title = "Diese Anwendung dient der Niedrigwasseranalyse für Deutschland",
-    "Diese Web App nutzt den GRDC Datensatz und das R-Paket-dischanalyst, um Niedrigwasserkennwerte
-   für einzelne Abflussmessstationen in Deutschland zu berechnen. Falls Fragen zur Anwendung auftreten, bitte die Anleitungen aufrufen. ",
+    title = "This Webapp uses the GRDC-dataset for a statistical low flow analysis in Germany. ",
 
     easyClose = F,
     footer = tagList(

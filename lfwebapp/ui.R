@@ -1,7 +1,7 @@
 
 library("shinythemes")
 library(gridExtra)
-
+#install_github("maibrittbergh/lfanalyse")
 
 library('scico')
 
@@ -81,7 +81,7 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
                 tabPanel(title="Stationsanalyse",
 
                          fluidRow(
-                           (column(8,
+                           (column(7,
 
                                    tabsetPanel(id="ui_tab",
 
@@ -107,11 +107,11 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
 
                            #Abschließen der linken Spalte mit Tabelle und Map
 
-                           column(4, conditionalPanel(condition="input.ui_tab!='Anwendungshinweise'",
+                           column(5, conditionalPanel(condition="input.ui_tab!='Anwendungshinweise'",
 
                                                      # tabsetPanel(id="plot_tabs",
                                                       #            tabPanel("Analysetools",
-                                                                           fluidRow(column(10,
+                                                                           fluidRow(column(12,
 
                                                                                 selectInput("ts_plot_type", "Darstellung", choices=c("Zeitreihenanalyse", "Schwellenwertbasiert", "Trendanalyse (n.Schwellenwertbasiert)")
 
@@ -137,7 +137,7 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
 
                                                                                            conditionalPanel(condition="input.ts_plot_type=='Zeitreihenanalyse'",
                                                                                                             selectInput("qplot_variety", label="Optionen der Zeitreihenanalyse:",
-                                                                                                                        choices=c("Abflussganglinie",   "jährliche Abflussganglinie", "Boxplot der Messwerte",  "jährlicher Boxplot der Messwerte",   "Plot der Jahreszeiten"))
+                                                                                                                        choices=c("Abflussganglinie", "Rasterplot der Abflusswerte",  "jährliche Abflussganglinie", "Boxplot der Messwerte",  "jährlicher Boxplot der Messwerte",   "Plot der Jahreszeiten"))
 
 
                                                                                                             ,
@@ -145,10 +145,14 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
                                                                                                             conditionalPanel(condition="input.qplot_variety=='jährlicher Boxplot der Messwerte'",  sliderInput("year", "Jahr: ", 2000, min=1975, max=2015, sep="")),
 
                                                                                                     #     #   conditionalPanel(condition="input.qplot_variety=='Abflussganglinie'" , checkboxInput("pettitt1", "Pettitt-Test:", value=FALSE)),
+                                                                                                            conditionalPanel(condition="input.qplot_variety=='Rasterplot'",  sliderInput("year2", "Jahr: ", 2000, min=1975, max=2015, sep=""), checkboxInput("hyeardis", label="Hydrologisches Jahr", value=TRUE)
+                                                                                                                            # ,
+                                                                                                                             #checkboxInput("pettitt2", "Pettitt-Test", value=FALSE)
+                                                                                                                             ),
 
 
-                                                                                                            conditionalPanel(condition="input.qplot_variety=='jährliche Abflussganglinie'",  sliderInput("year2", "Jahr: ", 2000, min=1975, max=2015, sep=""), checkboxInput("hyeardis", label="Hydrologisches Jahr", value=TRUE),
-                                                                                                                             checkboxInput("pettitt2", "Pettitt-Test", value=FALSE) ),
+                                                                                                            conditionalPanel(condition="input.qplot_variety=='jährliche Abflussganglinie'",  sliderInput("year2", "Jahr: ", 2000, min=1975, max=2015, sep=""), checkboxInput("hyeardis", label="Hydrologisches Jahr", value=TRUE)
+                                                                                                                              ),
                                                                                                             conditionalPanel(condition="input.qplot_variety=='Plot der Jahreszeiten'",  sliderInput("season1", "Anfang des Jahresabschnitts:",5,min=01, max=12)),
                                                                                                             conditionalPanel(condition="input.qplot_variety=='Plot der Jahreszeiten'",  sliderInput("season2", "Ende des Jahresabschnitts:",5,min=01, max=12, ) ),
                                                                                                             conditionalPanel(condition="input.qplot_variety=='Plot der Jahreszeiten'",  numericInput("ssy", "Startjahr:",2000, min=1999, max=2005 ) ),

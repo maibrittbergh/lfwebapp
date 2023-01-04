@@ -33,7 +33,11 @@ library(fontawesome)
 library(readr)
 library(shinyjs)
 library(lfanalyse)
+<<<<<<< HEAD
 #can i delete the other stuff?
+=======
+
+>>>>>>> 050d72b5f5b0c13ca53dc5eb31557a458e0b16a9
 
 # Load own dataset --------------------------------------------------------
 

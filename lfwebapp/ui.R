@@ -34,7 +34,7 @@ library(rgdal)
 
 library(DT) #make sure you load DT after Shiny
 
-library(dischanalyst)
+#library(dischanalyst)
 library(shinycssloaders)
 library(shinyWidgets)
 #install.packages("fontawesome")
@@ -72,34 +72,35 @@ repres=relstat=c("HOHENSAATEN-FINOW", "DRESDEN", "MAGDEBURG-STROMBRUECKE",
 
 # neuen Tab einfügen: navbarMenu
 
-ui = navbarPage(title="Low Flow Analysis for Germany", theme = shinytheme("paper"),
+ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinytheme("paper"),
 
 
 
 
                 # First Tab ---------------------------------------------------------------
-                tabPanel(title="Analysis", #stationsanalyse
+                tabPanel(title="Stationsanalyse",
 
                          fluidRow(
                            (column(8,
 
                                    tabsetPanel(id="ui_tab",
 
-                                               tabPanel("Map", #Karte
-                                                        column(12, h4("Choose a station"), shinycssloaders::withSpinner(leaflet::leafletOutput("map", height="800px"),
+                                               tabPanel("Karte",
+                                                        column(12, h4("Wähle eine Station"), shinycssloaders::withSpinner(leaflet::leafletOutput("map", height="800px"),
                                                                                                                           size=3, color="#0080b7"))),
-                                               tabPanel("Table", #Tabelle
-                                                        column(12, h4("Choose a station"), div(DT::dataTableOutput("table_input"), style = "font-size:70%"))),
+                                               tabPanel("Tabelle",
+                                                        column(12, h4("Wähle eine Station"), div(DT::dataTableOutput("table_input"), style = "font-size:70%"))),
 
 
 
-                                            #   tabPanel("Users Guide",
+                                               tabPanel("Anwendungshinweise"
+                                                        #,
 
-                                               #        column(12,
-                                               #                includeMarkdown("user_guides/tabone/user_guide_tab-1.Rmd") #including MArkdown for Users Guide
+                                                     #   column(12,
+                                                      #         includeMarkdown("user_guides/tabone/user_guide_tab-1.Rmd") #including MArkdown for Users Guide
 
-                                                 #       )
-                                              # )
+                                                      #  )
+                                               )
                                    )
                            )),
 
@@ -108,110 +109,35 @@ ui = navbarPage(title="Low Flow Analysis for Germany", theme = shinytheme("paper
 
                            column(4, conditionalPanel(condition="input.ui_tab!='Anwendungshinweise'",
 
-
-
-# Start of low flow analysis ----------------------------------------------
-
-
-
-                                                                                      tabsetPanel(id="plot_tabs",
-                                                                 tabPanel("Analysis",
-                                                                      fluidRow(column(10,
-
-                                                                                      actionButton('help', 'Help'),
-                                                                                      selectInput("anatype", "Type of Analysis:", choices=c("Overview Timeseries", "Descriptive Statistics", "Threshold Based", "Trend Analysis")),
-
-
-
-
-
-                                                                                      conditionalPanel(condition="input.anatype=='Overview Timeseries'",
-                                                                                                       selectInput("qplot_variety", label="Options for Timeseries overview:",
-                                                                                                                   choices=c("discharge timeseries",   "annual timeseries", "rasterplot", "seasonal plot"))
-                                                                                                                             #, "boxplot",  "annual boxplot",   "seasonal plot")) ??? seasonal plot vllt. interessant?
-
-
-
-                                                                                      ),
-
-
-
-                                                                                      conditionalPanel(condition="input.anatype=='Descriptive Statistics'",
-                                                                                                       selectInput("qplot_variety", label="Options for Descriptive Statistics:",
-                                                                                                                   choices=c("boxplot", "annual boxplot"))
-                                                                                                       #, "boxplot",  "annual boxplot",   "seasonal plot")) ??? seasonal plot vllt. interessant?
-
-
-
-                                                                                      ),
-
-
-
-                                                                                      conditionalPanel(condition="input.anatype=='Threshold Based'",
-
-                                                                                                       radioButtons("thres_type", "Threshold:", choices=c("quantile based", "numerical value"),
-                                                                                                                    inline=T),
-
-
-                                                                                                       conditionalPanel(condition="input.thres_type=='quantile based'",
-                                                                                                                        sliderInput("quantile", label="Quantile based threshold", min=0.05, max=1, value=0.3, step=0.05), sliderInput("yearq", "Year: ", 2000, min=1975, max=2015, sep="")),
-
-
-                                                                                                       conditionalPanel(condition="input.thres_type=='numerical value'",
-                                                                                                                        sliderInput("value", label="Value", min=0, max=3000, value=150,  sep=""), sliderInput("yearv", "Year: ", 2000, min=1975, max=2015, sep="")),
-
-                                                                                                       plotOutput("thresplot", width = "100%")
-
-
-
-                                                                                      ),
-
-                                                                                      conditionalPanel(condition="input.anatype=='Descriptive Statistics'",
-                                                                                                       selectInput("qplot_variety", label="Options for Descriptive Statistics:",
-                                                                                                                   choices=c("boxplot", "annual boxplot"))
-                                                                                                       #, "boxplot",  "annual boxplot",   "seasonal plot")) ??? seasonal plot vllt. interessant?
-
-
-
-                                                                                      ),
-
-
-
-
-
-
-
-
-
-
-
-
+                                                      tabsetPanel(id="plot_tabs",
+                                                                  tabPanel("Deskriptive Statistik",
+                                                                           fluidRow(column(10,
                                                                                            # uiOutput("date_slider") Vielleicht statt Jahr?
 
 
-                                                                                   #
-                                                                                         #  radioButtons("ts_plot_type", "Darstellung:", choices=c("Zeitreihenanalyse", "Trendanalyse (n.schwellenwertbasiert)"),
-                                                                                                 #       inline=T), #Functions QBoxplot, QBoxploty, Qplot, Qploty
+                                                                                           actionButton('help', 'Hilfe'),
+                                                                                           radioButtons("ts_plot_type", "Darstellung:", choices=c("Zeitreihenanalyse", "Trendanalyse (n.schwellenwertbasiert)"),
+                                                                                                        inline=T), #Functions QBoxplot, QBoxploty, Qplot, Qploty
 
                                                                                            conditionalPanel(condition="input.ts_plot_type=='Zeitreihenanalyse'",
                                                                                                             selectInput("qplot_variety", label="Optionen der Zeitreihenanalyse:",
-                                                                                                                        choices=c("discharge timeseries",   "annual timeseries", "boxplot",  "annual boxplot",   "seasonal plot"))
+                                                                                                                        choices=c("Abflussganglinie",   "jährliche Abflussganglinie", "Boxplot der Messwerte",  "jährlicher Boxplot der Messwerte",   "Plot der Jahreszeiten"))
 
 
                                                                                                             ,
 
-                                                                                                            conditionalPanel(condition="input.qplot_variety=='annual boxplot'",  sliderInput("year", "Jahr: ", 2000, min=1975, max=2015, sep="")),
+                                                                                                            conditionalPanel(condition="input.qplot_variety=='jährlicher Boxplot der Messwerte'",  sliderInput("year", "Jahr: ", 2000, min=1975, max=2015, sep="")),
 
-                                                                                                            conditionalPanel(condition="input.qplot_variety=='discharge timeseries'" , checkboxInput("pettitt1", "Pettitt-Test:", value=FALSE)),
+                                                                                                            conditionalPanel(condition="input.qplot_variety=='Abflussganglinie'" , checkboxInput("pettitt1", "Pettitt-Test:", value=FALSE)),
 
 
-                                                                                                            conditionalPanel(condition="input.qplot_variety=='annual timeseries'",  sliderInput("year2", "Jahr: ", 2000, min=1975, max=2015, sep=""), checkboxInput("hyeardis", label="Hydrologisches Jahr", value=TRUE),
+                                                                                                            conditionalPanel(condition="input.qplot_variety=='jährliche Abflussganglinie'",  sliderInput("year2", "Jahr: ", 2000, min=1975, max=2015, sep=""), checkboxInput("hyeardis", label="Hydrologisches Jahr", value=TRUE),
                                                                                                                              checkboxInput("pettitt2", "Pettitt-Test", value=FALSE) ),
-                                                                                                            conditionalPanel(condition="input.qplot_variety=='seasonal plot'",  sliderInput("season1", "Anfang des Jahresabschnitts:",5,min=01, max=12)),
-                                                                                                            conditionalPanel(condition="input.qplot_variety=='seasonal plot'",  sliderInput("season2", "Ende des Jahresabschnitts:",5,min=01, max=12, ) ),
-                                                                                                            conditionalPanel(condition="input.qplot_variety=='seasonal plot'",  numericInput("ssy", "Startjahr:",2000, min=1999, max=2005 ) ),
-                                                                                                            conditionalPanel(condition="input.qplot_variety=='seasonal plot'",  numericInput("sey", "Endjahr:",2001, min=1999, max=2005 ) ),
-                                                                                                            conditionalPanel(condition="input.qplot_variety=='seasonal plot'",      actionButton("printplot", label="Erstelle Plot")  ),
+                                                                                                            conditionalPanel(condition="input.qplot_variety=='Plot der Jahreszeiten'",  sliderInput("season1", "Anfang des Jahresabschnitts:",5,min=01, max=12)),
+                                                                                                            conditionalPanel(condition="input.qplot_variety=='Plot der Jahreszeiten'",  sliderInput("season2", "Ende des Jahresabschnitts:",5,min=01, max=12, ) ),
+                                                                                                            conditionalPanel(condition="input.qplot_variety=='Plot der Jahreszeiten'",  numericInput("ssy", "Startjahr:",2000, min=1999, max=2005 ) ),
+                                                                                                            conditionalPanel(condition="input.qplot_variety=='Plot der Jahreszeiten'",  numericInput("sey", "Endjahr:",2001, min=1999, max=2005 ) ),
+                                                                                                            conditionalPanel(condition="input.qplot_variety=='Plot der Jahreszeiten'",      actionButton("printplot", label="Erstelle Plot")  ),
                                                                                                             conditionalPanel(condition="input.qplot_variety=='Trendplot'",      renderText({"Loading may take some time. Thank you for your patience."}) ),
 
 
@@ -257,13 +183,13 @@ ui = navbarPage(title="Low Flow Analysis for Germany", theme = shinytheme("paper
                                                                                            )) )),
 
 
-                                                                  tabPanel("User Guide",
+                                                                  tabPanel("Schwellenwertbasiert",
 
 
                                                                            fluidRow(column(10,
                                                                                            # uiOutput("date_slider") Vielleicht statt Jahr?
 
-                                                                                           # conditionalPanel(condition="input.qplot_variety=='annual timeseries'",
+                                                                                           # conditionalPanel(condition="input.qplot_variety=='jährliche Abflussganglinie'",
                                                                                            actionButton('helpthres', 'Hilfe'),
                                                                                            radioButtons("thres_type", "Grenzwert:", choices=c("Quantilbasiert", "Numerischer Wert"),
                                                                                                         inline=T),
@@ -276,10 +202,9 @@ ui = navbarPage(title="Low Flow Analysis for Germany", theme = shinytheme("paper
                                                                                            conditionalPanel(condition="input.thres_type=='Numerischer Wert'",
                                                                                                             sliderInput("value", label="Wert", min=0, max=3000, value=150,  sep=""), sliderInput("yearv", "Jahr: ", 2000, min=1975, max=2015, sep="")),
 
-                                                                                           plotOutput("thresplot", width = "100%")
-                                                                                           #,
+                                                                                           plotOutput("thresplot", width = "100%"),
 
-                                                                                          # actionButton("cleardata3", label="Lösche Darstellungsoptionen")
+                                                                                           actionButton("cleardata3", label="Lösche Darstellungsoptionen")
 
                                                                            ))
 
@@ -313,10 +238,14 @@ ui = navbarPage(title="Low Flow Analysis for Germany", theme = shinytheme("paper
 
 
 
+
+
+
+
+
+
                 tags$footer(HTML('
                           <br>
                          <br>
                           <p>Author: Mai-Britt Berghöfer <br>
                           <a href="mailto:berghoefer@uni-potsdam.de">berghoefer@uni-potsdam.de</a></p>'), align = "center"))
-
-

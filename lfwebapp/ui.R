@@ -11,6 +11,7 @@ library("dichromat")
 library(leaflet)
 library(readxl)
 library(sf)
+library(lfanalyse)
 
 library(dplyr)
 library(ggplot2)
@@ -177,7 +178,7 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
 
 
                                                                                                             conditionalPanel( condition="input.trendpltype=='NMxQ-Trend'",
-                                                                                                                              sliderInput("xVALUE", "X-Wert", value=14, min=4, max=90),
+                                                                                                                              sliderInput("xVALUE", "X-Wert", value=14, min=3, max=20),
                                                                                                                               selectInput("season_trend", "Jahr/Jahreszeit:",choices= c("Jahr", "Winter", "Frühling", "Sommer", "Herbst"))),
 
 

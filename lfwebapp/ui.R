@@ -109,15 +109,31 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
 
                            column(4, conditionalPanel(condition="input.ui_tab!='Anwendungshinweise'",
 
-                                                      tabsetPanel(id="plot_tabs",
-                                                                  tabPanel("Deskriptive Statistik",
+                                                     # tabsetPanel(id="plot_tabs",
+                                                      #            tabPanel("Analysetools",
                                                                            fluidRow(column(10,
-                                                                                           # uiOutput("date_slider") Vielleicht statt Jahr?
+
+                                                                                selectInput("ts_plot_type", "Darstellung", choices=c("Zeitreihenanalyse", "Schwellenwertbasiert", "Trendanalyse (n.Schwellenwertbasiert)")
 
 
-                                                                                           actionButton('help', 'Hilfe'),
-                                                                                           radioButtons("ts_plot_type", "Darstellung:", choices=c("Zeitreihenanalyse", "Trendanalyse (n.schwellenwertbasiert)"),
-                                                                                                        inline=T), #Functions QBoxplot, QBoxploty, Qplot, Qploty
+
+                                                                                            ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                           #actionButton('help', 'Hilfe'),
+                                                                                   #     #  radioButtons("ts_plot_type", "Darstellung:", choices=c("Zeitreihenanalyse", "Trendanalyse (n.schwellenwertbasiert)"),
+                                                                                    #      #              inline=T), #Functions QBoxplot, QBoxploty, Qplot, Qploty
 
                                                                                            conditionalPanel(condition="input.ts_plot_type=='Zeitreihenanalyse'",
                                                                                                             selectInput("qplot_variety", label="Optionen der Zeitreihenanalyse:",
@@ -128,7 +144,7 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
 
                                                                                                             conditionalPanel(condition="input.qplot_variety=='jährlicher Boxplot der Messwerte'",  sliderInput("year", "Jahr: ", 2000, min=1975, max=2015, sep="")),
 
-                                                                                                            conditionalPanel(condition="input.qplot_variety=='Abflussganglinie'" , checkboxInput("pettitt1", "Pettitt-Test:", value=FALSE)),
+                                                                                                    #     #   conditionalPanel(condition="input.qplot_variety=='Abflussganglinie'" , checkboxInput("pettitt1", "Pettitt-Test:", value=FALSE)),
 
 
                                                                                                             conditionalPanel(condition="input.qplot_variety=='jährliche Abflussganglinie'",  sliderInput("year2", "Jahr: ", 2000, min=1975, max=2015, sep=""), checkboxInput("hyeardis", label="Hydrologisches Jahr", value=TRUE),
@@ -141,10 +157,12 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
                                                                                                             conditionalPanel(condition="input.qplot_variety=='Trendplot'",      renderText({"Loading may take some time. Thank you for your patience."}) ),
 
 
+
                                                                                                             plotOutput("disch_plot", width = "100%"),
 
 
-                                                                                                            actionButton("cleardata", label="Lösche Darstellungsoptionen")),
+                                                                                                            actionButton("cleardata", label="Lösche Darstellungsoptionen")
+                                                                                                            ),
 
 
 
@@ -180,44 +198,42 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
 
 
 
-                                                                                           )) )),
+                                                                                           ),
 
 
-                                                                  tabPanel("Schwellenwertbasiert",
+                                                     conditionalPanel(condition="input.ts_plot_type=='Schwellenwertbasiert'",
 
 
-                                                                           fluidRow(column(10,
-                                                                                           # uiOutput("date_slider") Vielleicht statt Jahr?
-
-                                                                                           # conditionalPanel(condition="input.qplot_variety=='jährliche Abflussganglinie'",
-                                                                                           actionButton('helpthres', 'Hilfe'),
-                                                                                           radioButtons("thres_type", "Grenzwert:", choices=c("Quantilbasiert", "Numerischer Wert"),
-                                                                                                        inline=T),
+                                                                      actionButton('helpthres', 'Hilfe'),
+                                                                      radioButtons("thres_type", "Grenzwert:", choices=c("Quantilbasiert", "Numerischer Wert"),
+                                                                                   inline=T),
 
 
-                                                                                           conditionalPanel(condition="input.thres_type=='Quantilbasiert'",
-                                                                                                            sliderInput("quantile", label="Quantilbasierter Schwellenwert", min=0.05, max=1, value=0.3, step=0.05), sliderInput("yearq", "Jahr: ", 2000, min=1975, max=2015, sep="")),
+                                                                      conditionalPanel(condition="input.thres_type=='Quantilbasiert'",
+                                                                                       sliderInput("quantile", label="Quantilbasierter Schwellenwert", min=0.05, max=1, value=0.3, step=0.05), sliderInput("yearq", "Jahr: ", 2000, min=1975, max=2015, sep="")),
 
 
-                                                                                           conditionalPanel(condition="input.thres_type=='Numerischer Wert'",
-                                                                                                            sliderInput("value", label="Wert", min=0, max=3000, value=150,  sep=""), sliderInput("yearv", "Jahr: ", 2000, min=1975, max=2015, sep="")),
+                                                                      conditionalPanel(condition="input.thres_type=='Numerischer Wert'",
+                                                                                       sliderInput("value", label="Wert", min=0, max=3000, value=150,  sep=""), sliderInput("yearv", "Jahr: ", 2000, min=1975, max=2015, sep="")),
 
-                                                                                           plotOutput("thresplot", width = "100%"),
+                                                                      plotOutput("thresplot", width = "100%"),
 
-                                                                                           actionButton("cleardata3", label="Lösche Darstellungsoptionen")
-
-                                                                           ))
+                                                                      actionButton("cleardata3", label="Lösche Darstellungsoptionen")
+                                                     )
 
 
 
-                                                                  )
+                                                     ) )),
 
 
 
 
 
 
-                                                      )),
+
+
+
+                                                  #    )),
 
                                   conditionalPanel(condition="input.ui_tab='Anwendungshinweise'",
                                                    column(10))
@@ -249,3 +265,4 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
                          <br>
                           <p>Author: Mai-Britt Berghöfer <br>
                           <a href="mailto:berghoefer@uni-potsdam.de">berghoefer@uni-potsdam.de</a></p>'), align = "center"))
+

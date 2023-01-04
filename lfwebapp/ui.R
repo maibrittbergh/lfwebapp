@@ -1,13 +1,13 @@
 
 library("shinythemes")
 library(gridExtra)
-<<<<<<< HEAD
+
 #install_github("maibrittbergh/lfanalyse")
 
-=======
+
 install_github("maibrittbergh/lfanalyse")
-1library(lfanalyse)
->>>>>>> 8e3b5150c894636092d94f7aa4f188cc3bb5a9b2
+library(lfanalyse)
+
 library('scico')
 
 library("dichromat")
@@ -171,7 +171,11 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
                                                                                                             plotOutput("disch_plot", width = "100%"),
 
 
-                                                                                                            actionButton("cleardata", label="Lösche Darstellungsoptionen")
+                                                                                                  downloadButton("DB", "Plot sichern")
+                                                                                                #  ,
+
+
+                                                                                                            #actionButton("cleardata", label="Lösche Darstellungsoptionen")
                                                                                                             ),
 
 

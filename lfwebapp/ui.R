@@ -171,7 +171,7 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
 
 
 
-                                                                                           conditionalPanel(condition="input.ts_plot_type=='Trendanalyse (n.schwellenwertbasiert)'",
+                                                                                           conditionalPanel(condition="input.ts_plot_type=='Trendanalyse (n.Schwellenwertbasiert)'",
                                                                                                             selectInput("trendpltype", "Optionen der Trendanalyse:", choices=c("Trend der Minimumwerte", "NMxQ-Trend", "Trend der Mittelwerte")),
 
 

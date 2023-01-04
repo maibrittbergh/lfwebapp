@@ -1,67 +1,11 @@
 
 
 
-
 server= function(input, output, session){
 
 
-  Qmin_trend=function(data, station, mod=1) {
-
-    nbr=which(names(data)==station)
-    val=data[[nbr]]
-    abs_min=min(data[[nbr]][,2])
-
-    year_one=as.numeric(substring(as.character(data[[nbr]][1,1]),1,4))
-    length=length(data[[nbr]][,1])
-    last_year=as.numeric(substring(as.character(data[[nbr]][length,1]),1,4))
-    years=c(year_one:last_year)
-    l=length(years)
-    q_min=rep(0, l)
-    for ( i in 1:l){
-      year=as.character(years[i])
-      j=grep(year, data[[nbr]][,1])
-      Val=data[[nbr]][,2][j]
-      q_min[i]=min(Val)
-    }
-    results=data.frame(years, q_min)
-    model= min_trend(data, station)
 
 
-    if(mod==1){
-      titl=paste("Yuepilon and Linear Trend of Minimum Values at",station)
-      cap=paste("Absolute Minimum is: ", abs_min, "slope: Trend Line- Sens Sloap:",model$slope_zyp,"slope: Trend Line- Least Squares:", model$slope_lm)
-      plot=ggplot(results)+geom_line(mapping=aes(x=years,y=q_min, group=1, col="a"), show.legend  =TRUE)+labs(title=titl, subtitle=paste("from", year_one, "to", last_year), x="Years" , y="Minimum Discharge Value", caption=cap)+
-        geom_abline(aes(intercept = model$intercept_zyp, slope= model$slope_zyp,  col="b"), show.legend=TRUE)+
-        geom_abline(aes(intercept= model$intercept_lm, slope=model$slope_lm,col="c"), show.legend=TRUE)+  scale_color_manual(name = "Legend:   ",
-                                                                                                                             labels=c("Minimum values", "Trend Line - Sens Sloap",
-                                                                                                                                      "Trend Line-Least Squares"), values=c("a"="#F8766D","b"= "#00BDD0", "c"="darkblue"), guide="legend")+ theme(legend.position = "bottom" )
-
-    }else if (mod==2){
-
-      titl=paste("Yuepilon  Trend of Minimum Values at",station)
-      cap=paste("Absolute Minimum is: ", abs_min, "slope: Trend Line- Sens Sloap:",model$slope_zyp)
-      plot=ggplot(results)+geom_line(mapping=aes(x=years,y=q_min, group=1, col="a"), show.legend  =TRUE)+labs(title=titl, subtitle=paste("from", year_one, "to", last_year), x="Years" , y="Minimum Discharge Value", caption=cap)+
-        geom_abline(aes(intercept = model$intercept_zyp, slope= model$slope_zyp,  col="b"), show.legend=TRUE)+
-        scale_color_manual(name = "Legend:   ",
-                           labels=c("Minimum values", "Trend Line - Sens Sloap"
-                           ), values=c("a"="#F8766D","b"= "#00BDD0"), guide="legend")+ theme(legend.position = "bottom" )
-    }else if(mod==3){
-
-      titl=paste("Linear Trend of Minimum Values at",station)
-      cap=paste("Absolute Minimum is: ", abs_min,"slope: Trend Line- Least Squares:", model$slope_lm)
-      plot=ggplot(results)+geom_line(mapping=aes(x=years,y=q_min, group=1, col="a"), show.legend  =TRUE)+labs(title=titl, subtitle=paste("from", year_one, "to", last_year), x="Years" , y="Minimum Discharge Value", caption=cap)+
-        geom_abline(aes(intercept= model$intercept_lm, slope=model$slope_lm,col="c"), show.legend=TRUE)+  scale_color_manual(name = "Legend:   ",
-                                                                                                                             labels=c("Minimum values",
-                                                                                                                                      "Trend Line-Least Squares"), values=c("a"="#F8766D", "c"="darkblue"), guide="legend")+ theme(legend.position = "bottom" )
-    }
-
-
-
-
-    return(plot)
-
-
-  }
   seasonpl=function(data, station, Startyear, Endyear, month_start, month_end){
 
 
@@ -674,6 +618,7 @@ server= function(input, output, session){
 
             plotr=Qmin_trend(data=data2,  station=stat_name, mod=1)
             return(plotr)
+
           }
           if (input$trendpltype=="NMxQ-Trend"){
             x_val=input$xVALUE

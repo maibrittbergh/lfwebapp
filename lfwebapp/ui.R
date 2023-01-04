@@ -1,8 +1,8 @@
 
 library("shinythemes")
 library(gridExtra)
-
-
+install_github("maibrittbergh/lfanalyse")
+1library(lfanalyse)
 library('scico')
 
 library("dichromat")

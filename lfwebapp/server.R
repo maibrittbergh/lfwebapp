@@ -518,6 +518,12 @@ server= function(input, output, session){
   output$trendplot=renderPlot({trendpl()})
 
 
+  output$DB1 <- downloadHandler(
+    filename = function() { paste(input$dataset, '.png', sep='') },
+    content = function(file) {
+      ggsave(file, plot = trendpl(), device = "png", width=10, height=7)
+    }
+  )
 
   thres= function(){
 
@@ -529,6 +535,11 @@ server= function(input, output, session){
   }
 
   output$thresplot= renderPlot({thres()})
+
+
+
+
+
 
 
   # Reactive Map -----------------------------------------------------
@@ -789,6 +800,13 @@ server= function(input, output, session){
     output$thresplot=renderPlot({thres()})
 
 
+    output$DB2 <- downloadHandler(
+      filename = function() { paste(input$dataset, '.png', sep='') },
+      content = function(file) {
+        ggsave(file, plot = thres(), device = "png", width=10, height=7)
+      }
+    )
+
 
 
 
@@ -1045,6 +1063,12 @@ server= function(input, output, session){
     }
     output$thresplot=renderPlot({thres()})
 
+    output$DB2 <- downloadHandler(
+      filename = function() { paste(input$dataset, '.png', sep='') },
+      content = function(file) {
+        ggsave(file, plot = thres(), device = "png", width=10, height=7)
+      }
+    )
 
 
 

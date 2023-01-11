@@ -208,7 +208,8 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
 
                                                                                                             plotOutput("trendplot") %>% withSpinner(color="#0dc5c1"),
 
-                                                                                                            actionButton("cleardata2", label="Lösche Darstellungsoptionen")
+                                                                                                            #actionButton("cleardata2", label="Lösche Darstellungsoptionen")
+                                                                                                            downloadButton("DB1", "Plot sichern")
 
 
 
@@ -233,7 +234,9 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
 
                                                                       plotOutput("thresplot", width = "100%"),
 
-                                                                      actionButton("cleardata3", label="Lösche Darstellungsoptionen")
+                                                                      #actionButton("cleardata3", label="Lösche Darstellungsoptionen")
+
+                                                                      downloadButton("DB2", "Plot sichern")
                                                      )
 
 

@@ -1,11 +1,12 @@
 
 library("shinythemes")
+
 library(gridExtra)
 
 #install_github("maibrittbergh/lfanalyse")
+library(lfanalyse)
 
-
-install_github("maibrittbergh/lfanalyse")
+#install_github("maibrittbergh/lfanalyse")
 library(lfanalyse)
 
 library('scico')

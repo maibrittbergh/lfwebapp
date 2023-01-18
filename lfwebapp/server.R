@@ -301,6 +301,7 @@ server= function(input, output, session){
 
 
 
+
   # Introduction ------------------------------------------------------------
 
 
@@ -518,12 +519,12 @@ server= function(input, output, session){
   output$trendplot=renderPlot({trendpl()})
 
 
-  output$DB1 <- downloadHandler(
-    filename = function() { paste(input$dataset, '.png', sep='') },
-    content = function(file) {
-      ggsave(file, plot = trendpl(), device = "png", width=10, height=7)
-    }
-  )
+#  output$DB1 <- downloadHandler(
+#    filename = function() { paste(input$dataset, '.png', sep='') },
+#    content = function(file) {
+#      ggsave(file, plot = trendpl(), device = "png", width=10, height=7)
+#    }
+#  )
 
   thres= function(){
 
@@ -581,6 +582,12 @@ server= function(input, output, session){
       updateSliderInput(session, "yearv", label = "Jahr: ",
                         min = sta_yea_cla, max = end_yea_cla)
 
+      updateSliderInput(session, "tf1", label= "Zeitspanne 1:",
+                        min = sta_yea_cla, max = end_yea_cla)
+
+
+      updateSliderInput(session, "tf2", "Zeitspanne 2:",
+                        min = sta_yea_cla, max = end_yea_cla)
 
 
     })
@@ -661,16 +668,32 @@ server= function(input, output, session){
       }
 
 
+
+      if(input$qplot_variety == "Zeitscheibenanalyse"){
+
+
+        min1=input$tf1[1]
+
+        max1=input$tf1[2]
+        min2=input$tf2[1]
+        max2=input$tf2[2]
+       timeslice=timeslice(data=data2, station=stat_name,  min1, max1, min2, max2)
+
+        return(timeslice)
+
+      }
+
+
     }
 
     output$disch_plot <- renderPlot({t_plot()})
 
-    output$DB <- downloadHandler(
-      filename = function() { paste(input$dataset, '.png', sep='') },
-      content = function(file) {
-        ggsave(file, plot = t_plot(), device = "png", width=10, height=7)
-      }
-    )
+#    output$DB <- downloadHandler(
+#      filename = function() { paste(input$dataset, '.png', sep='') },
+#      content = function(file) {
+#        ggsave(file, plot = t_plot(), device = "png", width=10, height=7)
+#      }
+#    )
 
 
     if(input$qplot_variety == "Plot der Jahreszeiten"){
@@ -800,12 +823,12 @@ server= function(input, output, session){
     output$thresplot=renderPlot({thres()})
 
 
-    output$DB2 <- downloadHandler(
-      filename = function() { paste(input$dataset, '.png', sep='') },
-      content = function(file) {
-        ggsave(file, plot = thres(), device = "png", width=10, height=7)
-      }
-    )
+#   output$DB2 <- downloadHandler(
+#      filename = function() { paste(input$dataset, '.png', sep='') },
+#      content = function(file) {
+#        ggsave(file, plot = thres(), device = "png", width=10, height=7)
+#      }
+#    )
 
 
 
@@ -1063,12 +1086,12 @@ server= function(input, output, session){
     }
     output$thresplot=renderPlot({thres()})
 
-    output$DB2 <- downloadHandler(
-      filename = function() { paste(input$dataset, '.png', sep='') },
-      content = function(file) {
-        ggsave(file, plot = thres(), device = "png", width=10, height=7)
-      }
-    )
+#    output$DB2 <- downloadHandler(
+#      filename = function() { paste(input$dataset, '.png', sep='') },
+#      content = function(file) {
+#        ggsave(file, plot = thres(), device = "png", width=10, height=7)
+#      }
+#    )
 
 
 

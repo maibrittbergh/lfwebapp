@@ -56,10 +56,10 @@ library(leaflet)
 
 library(viridis)
 
+library(lfanalyse)
 
 
-
-
+library(ggplot2)
 data=read_rds("metadata.rds")
 data2=read_rds("dataset.rds")
 MQlist=read_rds("NMQlist.rds")
@@ -88,7 +88,7 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
                 tabPanel(title="Stationsanalyse",
 
                          fluidRow(
-                           (column(7,
+                           (column(8,
 
                                    tabsetPanel(id="ui_tab",
 
@@ -114,7 +114,7 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
 
                            #Abschließen der linken Spalte mit Tabelle und Map
 
-                           column(5, conditionalPanel(condition="input.ui_tab!='Anwendungshinweise'",
+                           column(4, conditionalPanel(condition="input.ui_tab!='Anwendungshinweise'",
 
                                                      # tabsetPanel(id="plot_tabs",
                                                       #            tabPanel("Analysetools",
@@ -144,12 +144,14 @@ ui = navbarPage(title="Niedrigwasseranalyse für Deutschland", theme = shinythem
 
                                                                                            conditionalPanel(condition="input.ts_plot_type=='Zeitreihenanalyse'",
                                                                                                             selectInput("qplot_variety", label="Optionen der Zeitreihenanalyse:",
-                                                                                                                        choices=c("Abflussganglinie", "Rasterplot der Abflusswerte",  "jährliche Abflussganglinie", "Boxplot der Messwerte",  "jährlicher Boxplot der Messwerte",   "Plot der Jahreszeiten"))
+                                                                                                                        choices=c("Abflussganglinie", "Rasterplot der Abflusswerte", "Zeitscheibenanalyse", "jährliche Abflussganglinie", "Boxplot der Messwerte",  "jährlicher Boxplot der Messwerte",   "Plot der Jahreszeiten"))
 
 
                                                                                                             ,
 
                                                                                                             conditionalPanel(condition="input.qplot_variety=='jährlicher Boxplot der Messwerte'",  sliderInput("year", "Jahr: ", 2000, min=1975, max=2015, sep="")),
+
+                                                                                                            conditionalPanel(condition="input.qplot_variety=='Zeitscheibenanalyse'",  sliderInput("tf1", "Zeitspanne 1:", value=c(1980,1990), min=1975, max=2015, sep=""), sliderInput("tf2", "Zeitspanne 2:", value=c(1995,2005), min=1975, max=2015, sep="")),
 
                                                                                                     #     #   conditionalPanel(condition="input.qplot_variety=='Abflussganglinie'" , checkboxInput("pettitt1", "Pettitt-Test:", value=FALSE)),
                                                                                                             conditionalPanel(condition="input.qplot_variety=='Rasterplot'",  sliderInput("year2", "Jahr: ", 2000, min=1975, max=2015, sep=""), checkboxInput("hyeardis", label="Hydrologisches Jahr", value=TRUE)

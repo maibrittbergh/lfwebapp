@@ -519,12 +519,12 @@ server= function(input, output, session){
   output$trendplot=renderPlot({trendpl()})
 
 
-#  output$DB1 <- downloadHandler(
-#    filename = function() { paste(input$dataset, '.png', sep='') },
-#    content = function(file) {
-#      ggsave(file, plot = trendpl(), device = "png", width=10, height=7)
-#    }
-#  )
+  output$DB1 <- downloadHandler(
+    filename = function() { paste(input$dataset, '.png', sep='') },
+    content = function(file) {
+      ggsave(file, plot = trendpl(), device = "png", width=10, height=7)
+    }
+  )
 
   thres= function(){
 
@@ -688,12 +688,12 @@ server= function(input, output, session){
 
     output$disch_plot <- renderPlot({t_plot()})
 
-#    output$DB <- downloadHandler(
-#      filename = function() { paste(input$dataset, '.png', sep='') },
-#      content = function(file) {
-#        ggsave(file, plot = t_plot(), device = "png", width=10, height=7)
-#      }
-#    )
+  output$DB <- downloadHandler(
+      filename = function() { paste(input$dataset, '.png', sep='') },
+      content = function(file) {
+        ggsave(file, plot = t_plot(), device = "png", width=10, height=7)
+      }
+    )
 
 
     if(input$qplot_variety == "Plot der Jahreszeiten"){
@@ -823,12 +823,12 @@ server= function(input, output, session){
     output$thresplot=renderPlot({thres()})
 
 
-#   output$DB2 <- downloadHandler(
-#      filename = function() { paste(input$dataset, '.png', sep='') },
-#      content = function(file) {
-#        ggsave(file, plot = thres(), device = "png", width=10, height=7)
-#      }
-#    )
+  output$DB2 <- downloadHandler(
+      filename = function() { paste(input$dataset, '.png', sep='') },
+      content = function(file) {
+        ggsave(file, plot = thres(), device = "png", width=10, height=7)
+      }
+    )
 
 
 
@@ -1086,12 +1086,13 @@ server= function(input, output, session){
     }
     output$thresplot=renderPlot({thres()})
 
-#    output$DB2 <- downloadHandler(
-#      filename = function() { paste(input$dataset, '.png', sep='') },
-#      content = function(file) {
-#        ggsave(file, plot = thres(), device = "png", width=10, height=7)
-#      }
-#    )
+    output$DB2 <- downloadHandler(
+
+      filename = function() { paste(input$dataset, '.png', sep='') },
+      content = function(file) {
+        ggsave(file, plot = thres(), device = "png", width=10, height=7)
+      }
+    )
 
 
 

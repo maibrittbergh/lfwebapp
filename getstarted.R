@@ -45,12 +45,13 @@ library(lfanalyse)
 # Load own dataset --------------------------------------------------------
 
 path="/Users/maibrittberghofer/Desktop/Arbeit/GRDC_data/2022-11-02_10-59"
-Country="DE" #in which country are you interested?
+Country="CA" #in which country are you interested?
 
 
 
 
 metadata_germany=metadata_grdc(Country, path)
+
 
 # to avoid mistakes
 

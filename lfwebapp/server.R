@@ -380,7 +380,7 @@ server= function(input, output, session){
                           popupOptions = popupOptions(closeButton = FALSE)
         )  %>%
         addLegend("topright", colors = c("orange","green"), values = c("orange", "green"),labels = c("rep. Station", "Station"),
-                  title = "Legende",
+                  title = "Legend",
                   labFormat = labelFormat(prefix = "$"),
                   opacity = 1
         )%>%
@@ -569,17 +569,17 @@ server= function(input, output, session){
 
       end_yea_cla <- as.numeric(format(disc_data[nrow(disc_data),1], "%Y"))-1
 
-      updateSliderInput(session, "year", label = "Jahr: ",
+      updateSliderInput(session, "year", label = "Year:",
                         min = sta_yea_cla, max = end_yea_cla)
 
-      updateSliderInput(session, "year2", label = "Jahr: ",
+      updateSliderInput(session, "year2", label = "Year:",
                         min = sta_yea_cla, max = end_yea_cla)
 
 
-      updateSliderInput(session, "yearq", label = "Jahr: ",
+      updateSliderInput(session, "yearq", label = "Year:",
                         min = sta_yea_cla, max = end_yea_cla)
 
-      updateSliderInput(session, "yearv", label = "Jahr: ",
+      updateSliderInput(session, "yearv", label = "Year:",
                         min = sta_yea_cla, max = end_yea_cla)
 
       updateSliderInput(session, "tf1", label= "Zeitspanne 1:",
@@ -613,7 +613,7 @@ server= function(input, output, session){
     t_plot <- function(){
 
 
-      if(input$qplot_variety == "Abflussganglinie"){
+      if(input$qplot_variety == "Discharge Hydrograph"){
 
 
 
@@ -624,7 +624,7 @@ server= function(input, output, session){
       }
 
 
-      if(input$qplot_variety == "Rasterplot der Abflusswerte"){
+      if(input$qplot_variety == "Rasterplot"){
 
 
 
@@ -633,7 +633,7 @@ server= function(input, output, session){
         return(Rplot)
 
       }
-      if(input$qplot_variety == "jährliche Abflussganglinie"){
+      if(input$qplot_variety == "Annual Discharge Hydrograph"){
 
         if (input$hyeardis){
           Year=input$year2
@@ -652,7 +652,7 @@ server= function(input, output, session){
         return(qploty)
 
       }
-      if(input$qplot_variety == "jährlicher Boxplot der Messwerte"){
+      if(input$qplot_variety == "Annual Boxplot"){
 
 
         Year=input$year
@@ -660,7 +660,7 @@ server= function(input, output, session){
         return(qboxploty)
 
       }
-      if(input$qplot_variety == "Boxplot der Messwerte"){
+      if(input$qplot_variety == "Boxplot"){
 
         qboxplot=QBoxplot(data=data2,  station=stat_name)
         return(qboxplot)
@@ -669,7 +669,7 @@ server= function(input, output, session){
 
 
 
-      if(input$qplot_variety == "Zeitscheibenanalyse"){
+      if(input$qplot_variety == "Time Slice Analysis"){
 
 
         min1=input$tf1[1]
@@ -696,7 +696,7 @@ server= function(input, output, session){
     )
 
 
-    if(input$qplot_variety == "Plot der Jahreszeiten"){
+    if(input$qplot_variety == "Seasonal Plot"){
 
       observeEvent(input$printplot, {
         Startyear=input$ssy
@@ -887,18 +887,18 @@ server= function(input, output, session){
 
       end_yea_cla <- as.numeric(format(disc_data[nrow(disc_data),1], "%Y"))-1
 
-      updateSliderInput(session, "year", label = "Jahr: ",
+      updateSliderInput(session, "year", label = "Year:",
                         min = sta_yea_cla, max = end_yea_cla)
 
-      updateSliderInput(session, "year2", label = "Jahr: ",
+      updateSliderInput(session, "year2", label = "Year:",
                         min = sta_yea_cla, max = end_yea_cla)
 
 
 
-      updateSliderInput(session, "yearq", label = "Jahr: ",
+      updateSliderInput(session, "yearq", label = "Year:",
                         min = sta_yea_cla, max = end_yea_cla)
 
-      updateSliderInput(session, "yearv", label = "Jahr: ",
+      updateSliderInput(session, "yearv", label = "Year:",
                         min = sta_yea_cla, max = end_yea_cla)
 
 
@@ -925,13 +925,13 @@ server= function(input, output, session){
     t_plot <- function(){
 
 
-      if(input$qplot_variety == "Abflussganglinie"){
+      if(input$qplot_variety == "Discharge Hydrograph"){
 
         Qplot=Qplot(data2, stat_name)
         return(Qplot)
 
       }
-      if(input$qplot_variety == "jährliche Abflussganglinie"){
+      if(input$qplot_variety == "Annual Discharge Hydrograph"){
 
 
         Year=input$year2
@@ -939,7 +939,7 @@ server= function(input, output, session){
         return(qploty)
 
       }
-      if(input$qplot_variety == "jährlicher Boxplot der Messwerte"){
+      if(input$qplot_variety == "Annual Boxplot"){
 
 
         Year=input$year
@@ -947,7 +947,7 @@ server= function(input, output, session){
         return(qboxploty)
 
       }
-      if(input$qplot_variety == "Boxplot der Messwerte"){
+      if(input$qplot_variety == "Boxplot"){
 
         qboxplot=QBoxplot(data=data2,  station=stat_name)
         return(qboxplot)
@@ -960,7 +960,7 @@ server= function(input, output, session){
     output$disch_plot <- renderPlot({t_plot()})
 
 
-    if(input$qplot_variety == "Plot der Jahreszeiten"){
+    if(input$qplot_variety == "Seasonal Plot"){
 
       observeEvent(input$printplot, {
         Startyear=input$ssy

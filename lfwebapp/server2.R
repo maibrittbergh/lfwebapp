@@ -174,7 +174,7 @@ server= function(input, output, session){
       data=data[[station]]
       val=data[,2]
       abs_min=min(val)
-      #Minima der Jahre
+      #Minima der Yeare
       year_one=as.numeric(substring(as.character(data[1,1]),1,4))
 
       last_year=as.numeric(substring(as.character(data[length(val),1]),1,4))
@@ -462,7 +462,7 @@ server= function(input, output, session){
   t_plot <- function(){
 
     tpl= plot(1:10, 1:10, type = "n", axes = F, ylab = "", xlab = "")
-    mtext("Bitte eine Station auswählen", line = -1, cex = 1.5)
+    mtext("Please choose a station", line = -1, cex = 1.5)
     return(tpl)
   }
 
@@ -482,7 +482,7 @@ server= function(input, output, session){
   empty=   function(){
 
     plot=plot(1:10, 1:10, type = "n", axes = F, ylab = "", xlab = "")
-    mtext("Bitte eine Station auswählen", line = -1, cex = 1.5)
+    mtext("Please choose a station", line = -1, cex = 1.5)
     return(plot)
 
   }
@@ -493,7 +493,7 @@ server= function(input, output, session){
   trendpl= function(){
 
     plot=plot(1:10, 1:10, type = "n", axes = F, ylab = "", xlab = "")
-    mtext("Bitte eine Station auswählen ", line = -1, cex = 1.5)
+    mtext("Please choose a station ", line = -1, cex = 1.5)
     return(plot)
 
 
@@ -517,17 +517,12 @@ server= function(input, output, session){
   output$trendplot=renderPlot({trendpl()})
 
 
-  output$DB1 <- downloadHandler(
-    filename = function() { paste(input$dataset, '.png', sep='') },
-    content = function(file) {
-      ggsave(file, plot = trendpl(), device = "png", width=10, height=7)
-    }
-  )
+
 
   thres= function(){
 
     plot=plot(1:10, 1:10, type = "n", axes = F, ylab = "", xlab = "")
-    mtext("Bitte eine Station auswählen  ", line = -1, cex = 1.5)
+    mtext("Please choose a station  ", line = -1, cex = 1.5)
     return(plot)
 
 
@@ -705,6 +700,16 @@ server= function(input, output, session){
         seasonplot=seasonpl(data=data2, station=stat_name, Startyear=Startyear, Endyear=Endyear, month_start=month_start, month_end =month_end )
 
         output$disch_plot <- renderPlot({seasonplot})
+
+
+
+        output$DB <- downloadHandler(
+          filename = function() { paste(input$dataset, '.png', sep='') },
+          content = function(file) {
+            ggsave(file, plot = seasonplot, device = "png", width=10, height=7)
+          }
+        )
+
       })
 
 
@@ -716,7 +721,7 @@ server= function(input, output, session){
     #"season_trend", "Choose Season", c("Year", "Winter", "Spring", "Sommer", "Autumn"))
 
     observeEvent(input$season_trend,{
-      if (input$season_trend=="Jahr"){
+      if (input$season_trend=="Year"){
         season="Y"
       }
       if (input$season_trend=="Autumn"){
@@ -735,7 +740,7 @@ server= function(input, output, session){
 
 
       observeEvent(input$season_trend_2,{
-        if (input$season_trend_2=="Jahr"){
+        if (input$season_trend_2=="Year"){
           seas="Y"
         }
         if (input$season_trend_2=="Autumn"){
@@ -782,16 +787,17 @@ server= function(input, output, session){
 
         output$trendplot=renderPlot({trendpl()})
 
-
+        output$DB1 <- downloadHandler(
+          filename = function() { paste(input$dataset, '.png', sep='') },
+          content = function(file) {
+            ggsave(file, plot = trendpl(), device = "png", width=10, height=7)
+          }
+        )
       })
 
 
+
     })
-
-
-
-
-
 
 
 
@@ -972,6 +978,11 @@ server= function(input, output, session){
       })
       output$disch_plot <- renderPlot({plja})
 
+
+
+
+
+
     }
 
 
@@ -1044,12 +1055,25 @@ server= function(input, output, session){
 
 
         output$trendplot=renderPlot({trendpl()})
+        output$DB1 <- downloadHandler(
+          filename = function() { paste(input$dataset, '.png', sep='') },
+          content = function(file) {
+            ggsave(file, plot = trendpl(), device = "png", width=10, height=7)
+          }
+        )
+
 
 
       })
 
 
+
+
+
+
     })
+
+
 
 
 

@@ -219,16 +219,16 @@ ui = navbarPage(title="Low Flow Analysis", theme = shinytheme("paper"),
 
 
                                                                       actionButton('helpthres', 'Hilfe'),
-                                                                      radioButtons("thres_type", "Grenzwert:", choices=c("Quantilbasiert", "Numerischer Wert"),
+                                                                      radioButtons("thres_type", "Threshold Value:", choices=c("Quantile based", "Numerical Value"),
                                                                                    inline=T),
 
 
-                                                                      conditionalPanel(condition="input.thres_type=='Quantilbasiert'",
-                                                                                       sliderInput("quantile", label="Quantilbasierter Schwellenwert", min=0.05, max=1, value=0.3, step=0.05), sliderInput("yearq", "Year:", 2000, min=1975, max=2015, sep="")),
+                                                                      conditionalPanel(condition="input.thres_type=='Quantile based'",
+                                                                                       sliderInput("quantile", label="Quantile based Threshold", min=0.05, max=1, value=0.3, step=0.05), sliderInput("yearq", "Year:", 2000, min=1975, max=2015, sep="")),
 
 
-                                                                      conditionalPanel(condition="input.thres_type=='Numerischer Wert'",
-                                                                                       sliderInput("value", label="Wert", min=0, max=3000, value=150,  sep=""), sliderInput("yearv", "Year:", 2000, min=1975, max=2015, sep="")),
+                                                                      conditionalPanel(condition="input.thres_type=='Numerical Value'",
+                                                                                       sliderInput("value", label="Value", min=0, max=3000, value=150,  sep=""), sliderInput("yearv", "Year:", 2000, min=1975, max=2015, sep="")),
 
                                                                       plotOutput("thresplot", width = "100%"),
 

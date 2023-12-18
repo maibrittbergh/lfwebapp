@@ -36,8 +36,8 @@ library(fontawesome)
 library(readr)
 library(shinyjs)
 library(lfanalyse)
-install.packages("shiny")
-
+#install.packages("shiny")
+library(shiny)
 #can i delete the other stuff?
 
 
@@ -45,14 +45,10 @@ install.packages("shiny")
 # Load own dataset --------------------------------------------------------
 
 path="/Users/maibrittberghofer/Desktop/Arbeit/GRDC_data/2022-11-02_10-59"
-Country="CA" #in which country are you interested?
+#metadata_ww=metadata_grdc(path=path, country_selection=F )
+dataset_ww=lfanalyse::grdc_reader(metadata_ww, path="/Users/maibrittberghofer/Desktop/Arbeit/GRDC_DATA_DOWNLOAD/Downloaded_GRDC_DATA_13_06_23")
 
-
-
-
-metadata_germany=metadata_grdc(Country, path)
-
-
+dataset_WW=sr
 # to avoid mistakes
 
 metadata_repg=metadata_repg(metadata_germany, mark=T)

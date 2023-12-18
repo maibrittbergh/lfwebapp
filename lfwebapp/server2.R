@@ -144,7 +144,7 @@ server= function(input, output, session){
 
       if (graph==T){
 
-        plot=ggplot()+labs(title=paste("Low Flow Period at", station, "in", year, "/",year+1), subtitle = paste("Threshold:",round(U,2), "[m³/s] ~", quantile*100, "% Quantile \n Mean Value:", round( mean(data[,2]),2), "[m³/s]"), caption=paste("Volume of deficite: ",round(deficite,2), "[m³] \n Sum of days under Threshold:", suml, "days \n Longest Low Flow period:", max(e), "days"))+
+        plot=ggplot()+labs(title=paste("Low Flow Period at", station, "in", year, "/",year+1), subtitle = paste("Threshold:",round(U,2), "[m³/s] ~", 100-quantile*100, "% Quantile \n Mean Value:", round( mean(data[,2]),2), "[m³/s]"), caption=paste("Volume of deficite: ",round(deficite,2), "[m³] \n Sum of days under Threshold:", suml, "days \n Longest Low Flow period:", max(e), "days"))+
 
           ylab(expression('Discharge Value [m'^3*'/s]'))+xlab("Days")+
           geom_polygon(aes(c(datayear$YYYY.MM.DD[1],datayear$YYYY.MM.DD[1],  datayear$YYYY.MM.DD[le], datayear$YYYY.MM.DD[le] ),c(0,U,U,0 ), col="i"), colour="red", fill="brown3")+
@@ -607,7 +607,6 @@ server= function(input, output, session){
 
 
       if(input$qplot_variety == "Discharge Hydrograph"){
-
 
 
         Qplot=Qplot(data2, stat_name, F)
@@ -1158,6 +1157,10 @@ server= function(input, output, session){
 
 
 shinyApp(ui=ui, server=server)
+
+
+
+
 #Frühlingfunctions abchecken
 #slope ausformulieren in caption
 #Achsenbeschriftung

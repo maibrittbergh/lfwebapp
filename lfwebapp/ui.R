@@ -2,11 +2,14 @@
 
 
 
+
+
 library("shinythemes")
 
-library(gridExtra)
+install.packages("rmarkdown")
+library(grmarkdownlibrary(gridExtra)
 library(devtools)
-#install_github("maibrittbergh/lfanalyse")
+install_github("maibrittbergh/lfanalyse")
 library(lfanalyse)
 
 #install_github("maibrittbergh/lfanalyse")
@@ -60,7 +63,7 @@ library(leaflet)
 library(viridis)
 
 library(lfanalyse)
-install.packages("")
+
 library(png)
 
 
@@ -68,11 +71,11 @@ library(ggplot2)
 data=read_rds("metadata.rds")
 nrow(data)
 data2=read_rds("dataset.rds")
-path="/Users/maibrittberghofer/Desktop/Arbeit/GRDC_DATA_DOWNLOAD/Downloaded_GRDC_DATA_13_06_23"
+#path="/Users/maibrittberghofer/Desktop/Arbeit/GRDC_DATA_DOWNLOAD/Downloaded_GRDC_DATA_13_06_23"
 
-data=metadata_grdc(Country = "DE", path=path)
+#data=metadata_grdc(Country = "DE", path=path)
 
-data=metadata_repg(data, mark=T)
+#data=metadata_repg(data, mark=T)
 
 
 #delete incomplete measurements
@@ -81,7 +84,7 @@ which(data$station=="BAD SUELZE")
 data=data[-241, ]
 
 
-data2=grdc_reader(data, path)
+#data2=grdc_reader(data, path)
 
 
 

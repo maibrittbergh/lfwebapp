@@ -6,10 +6,11 @@
 
 library("shinythemes")
 
-install.packages("rmarkdown")
-library(grmarkdownlibrary(gridExtra)
+#install.packages("rmarkdown")
+
+library(grmarkdownlibrary(gridExtra))
 library(devtools)
-install_github("maibrittbergh/lfanalyse")
+#install_github("maibrittbergh/lfanalyse")
 library(lfanalyse)
 
 #install_github("maibrittbergh/lfanalyse")

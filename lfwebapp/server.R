@@ -1,4 +1,4 @@
-datam=data.frame(data)
+data=data.frame(data)
 
 
 
@@ -63,7 +63,7 @@ server= function(input, output, session){
 
 
       if (graph==T){
-        plot=ggplot()+labs(title=paste("Low Flow Period at", station, "in", year, "/",year+1), subtitle = paste("Threshold:",round(U,2),  "[m³/s] \n Mean Value:", round( mean(data[,2]),2), "[m³/s]"), caption=paste("Volume of deficite: ",round(deficite,2), "[m³] \n Sum of days under Threshold:", suml, "days \n Longest Low Flow period:", max(e), "days"))+
+        plot=ggplot()+labs(title=paste("Low Flow Period at", station, "in", year, "/",year+1), subtitle = paste("Threshold:",round(U,2),  "[m³/s] \n Mean Value:", round( mean(dat[,2]),2), "[m³/s]"), caption=paste("Volume of deficite: ",round(deficite,2), "[m³] \n Sum of days under Threshold:", suml, "days \n Longest Low Flow period:", max(e), "days"))+
 
           ylab(expression('Discharge Value [m'^3*'/s]'))+xlab("Days")+
           geom_polygon(aes(c(datayear$YYYY.MM.DD[1],datayear$YYYY.MM.DD[1],  datayear$YYYY.MM.DD[le], datayear$YYYY.MM.DD[le] ),c(0,U,U,0 ), col="i"), colour="red", fill="brown3")+
@@ -355,9 +355,9 @@ server= function(input, output, session){
 
 
  #   output$map <- renderLeaflet({
-  #    leaflet(data=datam) %>%
+  #    leaflet(data=data) %>%
    #     addTiles() %>%
-    #    addAwesomeMarkers( data=datam,lat = ~latitude, lng = ~longitude, icon=icons,
+    #    addAwesomeMarkers( data=data,lat = ~latitude, lng = ~longitude, icon=icons,
       #                   clusterOptions = markerClusterOptions(zoomToBoundsOnClick = T),
 
          #                 popup = ~paste(
@@ -388,7 +388,7 @@ server= function(input, output, session){
 
   output$table_input <- DT::renderDataTable({
     DT::datatable(
-      datam,
+      data,
       selection = 'single',
       rownames = FALSE,
       colnames = c(
@@ -528,281 +528,281 @@ server= function(input, output, session){
 
 
   #Dummy which gets selected gauge
-  gauge_sel <-  shiny::reactiveValues(clicked_gauge = "XXX")
+ # gauge_sel <-  shiny::reactiveValues(clicked_gauge = "XXX")
 
   #Reaction to selection of station on map
-  observeEvent(input$map_marker_click,{
+ # observeEvent(input$map_marker_click,{
 
-    gauge_sel$clicked_gauge <- input$map_marker_click
+ #   gauge_sel$clicked_gauge <- input$map_marker_click
+#
+#    stat_sel <- which(data$latitude == gauge_sel$clicked_gauge$lat)
 
-    stat_sel <- which(data$latitude == gauge_sel$clicked_gauge$lat)
-
-    stat_name <- data$station[stat_sel] #station name
+  #  stat_name <- data$station[stat_sel] #station name
 
 
 
     #read discharge time series
-    disc_data <- data2[[stat_name]]
+ #   disc_data <- data2[[stat_name]]
 
-    observe({
+  #  observe({
 
-      sta_yea_cla <- as.numeric(format(disc_data[1,1], "%Y"))
+   #   sta_yea_cla <- as.numeric(format(disc_data[1,1], "%Y"))
 
-      end_yea_cla <- as.numeric(format(disc_data[nrow(disc_data),1], "%Y"))-1
+ #     end_yea_cla <- as.numeric(format(disc_data[nrow(disc_data),1], "%Y"))-1
 
-      updateSliderInput(session, "year", label = "Year:",
-                        min = sta_yea_cla, max = end_yea_cla)
+  #    updateSliderInput(session, "year", label = "Year:",
+         #               min = sta_yea_cla, max = end_yea_cla)
 
-      updateSliderInput(session, "year2", label = "Year:",
-                        min = sta_yea_cla, max = end_yea_cla)
+   #   updateSliderInput(session, "year2", label = "Year:",
+           #             min = sta_yea_cla, max = end_yea_cla)
 
 
-      updateSliderInput(session, "yearq", label = "Year:",
-                        min = sta_yea_cla, max = end_yea_cla)
+  #    updateSliderInput(session, "yearq", label = "Year:",
+  #                      min = sta_yea_cla, max = end_yea_cla)
 
-      updateSliderInput(session, "yearv", label = "Year:",
-                        min = sta_yea_cla, max = end_yea_cla)
+   #   updateSliderInput(session, "yearv", label = "Year:",
+    #                    min = sta_yea_cla, max = end_yea_cla)
 
-      updateSliderInput(session, "tf1", label= "Period 1:",
-                        min = sta_yea_cla, max = end_yea_cla)
+     # updateSliderInput(session, "tf1", label= "Period 1:",
+      #                  min = sta_yea_cla, max = end_yea_cla)
 
 
-      updateSliderInput(session, "tf2", "Period 2:",
-                        min = sta_yea_cla, max = end_yea_cla)
+    #  updateSliderInput(session, "tf2", "Period 2:",
+     #                   min = sta_yea_cla, max = end_yea_cla)
 
 
-    })
+    #})
 
-    observe({
+ #   observe({
 
-      sta_yea_cla <- as.numeric(format(disc_data[1,1], "%Y"))
+  #    sta_yea_cla <- as.numeric(format(disc_data[1,1], "%Y"))
 
-      end_yea_cla <- as.numeric(format(disc_data[nrow(disc_data),1], "%Y"))
+   #   end_yea_cla <- as.numeric(format(disc_data[nrow(disc_data),1], "%Y"))
 
-      rast_time_init <- c(sta_yea_cla, end_yea_cla)
+    #  rast_time_init <- c(sta_yea_cla, end_yea_cla)
 
 
-      updateNumericInput(session, "ssy", label = "Start year:", sta_yea_cla,
-                         min = sta_yea_cla+1, max = end_yea_cla-1)
-      updateNumericInput(session, "sey", label = "End year:", sta_yea_cla+1,
-                         min = sta_yea_cla+1, max = end_yea_cla-1)
+     # updateNumericInput(session, "ssy", label = "Start year:", sta_yea_cla,
+ #                        min = sta_yea_cla+1, max = end_yea_cla-1)
+#      updateNumericInput(session, "sey", label = "End year:", sta_yea_cla+1,
+#                         min = sta_yea_cla+1, max = end_yea_cla-1)
 
-    })
+ #   })
 
 
 
-    t_plot <- function(){
+  #  t_plot <- function(){
 
 
-      if(input$qplot_variety == "Discharge Hydrograph"){
+   #   if(input$qplot_variety == "Discharge Hydrograph"){
 
 
-        Qplot=Qplot(data2, stat_name, F)
+    #    Qplot=Qplot(data2, stat_name, F)
 
-        return(Qplot)
+     #   return(Qplot)
 
-      }
+      #}
 
 
-      if(input$qplot_variety == "Rasterplot"){
+      #if(input$qplot_variety == "Rasterplot"){
 
 
 
-        Rplot=Rasterplot(stat_name, data2)
+       # Rplot=Rasterplot(stat_name, data2)
 
-        return(Rplot)
+        #return(Rplot)
 
-      }
-      if(input$qplot_variety == "Annual Discharge Hydrograph"){
+      #}
+      #if(input$qplot_variety == "Annual Discharge Hydrograph"){
 
-        if (input$hyeardis){
-          Year=input$year2
+       # if (input$hyeardis){
+        #  Year=input$year2
 
-          if (input$pettitt2){
-            qploty=Qploty(data2, stat_name, year=Year,h=T, pettitt=T)
-          }else{  qploty=Qploty(data2, stat_name, year=Year,h=T, pettitt=F)    }
-        }else{
-          Year=input$year2
-          if (input$pettitt2){
-            qploty=Qploty(data2, stat_name, year=Year,h=F, pettitt=T)
-          }else{  qploty=Qploty(data2, stat_name, year=Year,h=F, pettitt=F)    }
+         # if (input$pettitt2){
+  #          qploty=Qploty(data2, stat_name, year=Year,h=T, pettitt=T)
+   #       }else{  qploty=Qploty(data2, stat_name, year=Year,h=T, pettitt=F)    }
+    #    }else{
+     #     Year=input$year2
+      #    if (input$pettitt2){
+       ##     qploty=Qploty(data2, stat_name, year=Year,h=F, pettitt=T)
+         # }else{  qploty=Qploty(data2, stat_name, year=Year,h=F, pettitt=F)    }
 
-        }
+  #      }
 
-        return(qploty)
+   #     return(qploty)
 
-      }
-      if(input$qplot_variety == "Annual Boxplot"){
+    #  }
+#      if(input$qplot_variety == "Annual Boxplot"){
 
 
-        Year=input$year
-        qboxploty=QBoxploty(data=data2,  station=stat_name, year=Year, h=T)
-        return(qboxploty)
+ #       Year=input$year
+  #      qboxploty=QBoxploty(data=data2,  station=stat_name, year=Year, h=T)
+   #     return(qboxploty)
 
-      }
-      if(input$qplot_variety == "Boxplot"){
+#      }
+ #     if(input$qplot_variety == "Boxplot"){
 
-        qboxplot=QBoxplot(data=data2,  station=stat_name)
-        return(qboxplot)
+  #      qboxplot=QBoxplot(data=data2,  station=stat_name)
+   #     return(qboxplot)
 
-      }
+    #  }
 
 
 
-      if(input$qplot_variety == "Time Slice Analysis"){
+#      if(input$qplot_variety == "Time Slice Analysis"){
 
 
-        min1=input$tf1[1]
+ #       min1=input$tf1[1]
 
-        max1=input$tf1[2]
-        min2=input$tf2[1]
-        max2=input$tf2[2]
-        timeslice=timeslice(data=data2, station=stat_name,  min1, max1, min2, max2)
+  #      max1=input$tf1[2]
+   #     min2=input$tf2[1]
+    #    max2=input$tf2[2]
+     #   timeslice=timeslice(data=data2, station=stat_name,  min1, max1, min2, max2)
 
-        return(timeslice)
+      #  return(timeslice)
 
-      }
+ #     }
 
 
-    }
+  #  }
 
-    output$disch_plot <- renderPlot({t_plot()})
+#    output$disch_plot <- renderPlot({t_plot()})
 
-    output$DB <- downloadHandler(
-      filename = function() { paste(input$dataset, '.png', sep='') },
-      content = function(file) {
-        ggsave(file, plot = t_plot(), device = "png", width=10, height=7)
-      }
-    )
+ #   output$DB <- downloadHandler(
+ #     filename = function() { paste(input$dataset, '.png', sep='') },
+  #    content = function(file) {
+   #     ggsave(file, plot = t_plot(), device = "png", width=10, height=7)
+    #  }
+  #  )
 
 
-    if(input$qplot_variety == "Seasonal Plot"){
+   # if(input$qplot_variety == "Seasonal Plot"){
 
-      observeEvent(input$printplot, {
-       Startyear=input$ssy
-        Endyear=input$sey
-        month_start=input$season1
-        month_end=input$season2
+    #  observeEvent(input$printplot, {
+  #     Startyear=input$ssy
+   #     Endyear=input$sey
+    #    month_start=input$season1
+    #    month_end=input$season2
 
-        seasonplot=seasonpl(data=data2, station=stat_name, Startyear=Startyear, Endyear=Endyear, month_start=month_start, month_end =month_end )
+     #   seasonplot=seasonpl(data=data2, station=stat_name, Startyear=Startyear, Endyear=Endyear, month_start=month_start, month_end =month_end )
 
-        output$disch_plot <- renderPlot({seasonplot})
+      #  output$disch_plot <- renderPlot({seasonplot})
 
 
 
-        output$DB <- downloadHandler(
-          filename = function() { paste(input$dataset, '.png', sep='') },
-          content = function(file) {
-            ggsave(file, plot = seasonplot, device = "png", width=10, height=7)
-          }
-       )
+       # output$DB <- downloadHandler(
+        #  filename = function() { paste(input$dataset, '.png', sep='') },
+         # content = function(file) {
+         #   ggsave(file, plot = seasonplot, device = "png", width=10, height=7)
+          #}
+      # )
 
-     })
+     #})
 
 
-    }
+    #}
 
 
     #  trendpl=function(){
 
     #"season_trend", "Choose Season", c("Year", "Winter", "Spring", "Sommer", "Autumn"))
 
-    observeEvent(input$season_trend,{
-      if (input$season_trend=="Year"){
-        season="Y"
-      }
-      if (input$season_trend=="Autumn"){
-        season="AU"
-      }
-      if (input$season_trend=="Winter"){
-        season="WI"
-      }
-      if (input$season_trend=="Spring"){
-        season="SP"
-      }
-      if (input$season_trend=="Summer"){
-        season="SU"
-      }
+#    observeEvent(input$season_trend,{
+#      if (input$season_trend=="Year"){
+#        season="Y"
+#      }
+#      if (input$season_trend=="Autumn"){
+#        season="AU"
+#      }
+#      if (input$season_trend=="Winter"){
+#        season="WI"
+#      }
+#      if (input$season_trend=="Spring"){
+#        season="SP"
+#      }
+#      if (input$season_trend=="Summer"){
+#        season="SU"
+#      }
 
 
 
-      observeEvent(input$season_trend_2,{
-        if (input$season_trend_2=="Year"){
-          seas="Y"
-        }
-        if (input$season_trend_2=="Autumn"){
-          seas="AU"
-        }
-        if (input$season_trend_2=="Winter"){
-          seas="WI"
-        }
-        if (input$season_trend_2=="Spring"){
-          seas="SP"
-        }
-        if (input$season_trend_2=="Summer"){
-          seas="SU"
-        }
+#      observeEvent(input$season_trend_2,{
+#        if (input$season_trend_2=="Year"){
+#          seas="Y"
+#        }
+#        if (input$season_trend_2=="Autumn"){
+ #         seas="AU"
+#        }
+#        if (input$season_trend_2=="Winter"){
+#          seas="WI"
+#        }
+#        if (input$season_trend_2=="Spring"){
+#          seas="SP"
+#        }
+#        if (input$season_trend_2=="Summer"){
+#          seas="SU"
+#        }
 
 
 
 
 
-        trendpl=function(){
-          if (input$trendpltype=="Trend of Minimum Values "){
+#        trendpl=function(){
+#          if (input$trendpltype=="Trend of Minimum Values "){
 
-            plotr=Qmin_trend(data=data2,  station=stat_name, mod=1)
-            return(plotr)
+#            plotr=Qmin_trend(data=data2,  station=stat_name, mod=1)
+#            return(plotr)
 
-          }
-          if (input$trendpltype=="NMxQ-Trend"){
-            x_val=input$xVALUE
+#          }
+#          if (input$trendpltype=="NMxQ-Trend"){
+#            x_val=input$xVALUE
 
-            plotr=NMxQ_trend(data=data2,  station=stat_name, x=x_val, seasonal=season, graphic=T)
-            return(plotr)
-          }
-          if (input$trendpltype=="Trend of Mean Values "){
-
-
-            plotr=MQ_trend(data=data2,  station=stat_name, seasonal=seas )
-            return(plotr)
-          }
+#            plotr=NMxQ_trend(data=data2,  station=stat_name, x=x_val, seasonal=season, graphic=T)
+#            return(plotr)
+#          }
+#          if (input$trendpltype=="Trend of Mean Values "){
 
 
-
-        }
-
-
-        output$trendplot=renderPlot({trendpl()})
-
-        output$DB1 <- downloadHandler(
-          filename = function() { paste(input$dataset, '.png', sep='') },
-          content = function(file) {
-            ggsave(file, plot = trendpl(), device = "png", width=10, height=7)
-          }
-        )
-      })
+#            plotr=MQ_trend(data=data2,  station=stat_name, seasonal=seas )
+#            return(plotr)
+#          }
 
 
 
-    })
+#        }
 
-    thres <- function() {
-      if (input$thres_type == "Quantile based") {
-        quant <- input$quantile
-        quantile <- 1 - quant
-        Year <- input$yearq
-        qperipl <- periodplot_quantile(data2, stat_name, quantile, year = Year, graph = TRUE)
-        return(qperipl)
-      }
-      if (input$thres_type == "Numerical Value") {
-        Val <- input$value
-        Year <- input$yearv
-        uperipl <- U_periodploty(data2, stat_name, U = Val, year = Year, graph = TRUE)
-        return(uperipl)
-      }
+
+#        output$trendplot=renderPlot({trendpl()})
+#
+#        output$DB1 <- downloadHandler(
+#          filename = function() { paste(input$dataset, '.png', sep='') },
+#          content = function(file) {
+ #           ggsave(file, plot = trendpl(), device = "png", width=10, height=7)
+#          }
+ #       )
+#      })
+
+
+
+#    })
+
+#    thres <- function() {
+#      if (input$thres_type == "Quantile based") {
+ #       quant <- input$quantile
+#        quantile <- 1 - quant
+#        Year <- input$yearq
+#        qperipl <- periodplot_quantile(data2, stat_name, quantile, year = Year, graph = TRUE)
+#        return(qperipl)
+#      }
+#      if (input$thres_type == "Numerical Value") {
+#        Val <- input$value
+#        Year <- input$yearv
+#        uperipl <- U_periodploty(data2, stat_name, U = Val, year = Year, graph = TRUE)
+#        return(uperipl)
+#      }
       # Add a default return statement in case neither condition is met
-      return(empty())
-    }
+#      return(empty())
+#    }
 
 
 
@@ -814,27 +814,29 @@ server= function(input, output, session){
 
 
 
-    output$thresplot=renderPlot({thres()})
+ #   output$thresplot=renderPlot({thres()})
 
 
-    output$DB2 <- downloadHandler(
-      filename = function() { paste(input$dataset, '.png', sep='') },
-      content = function(file) {
-        ggsave(file, plot = thres(), device = "png", width=10, height=7)
-      }
-    )
-
-
-
-
-  }) #Observe Event Map/Marker/Table Marker Click finishes
+#    output$DB2 <- downloadHandler(
+#      filename = function() { paste(input$dataset, '.png', sep='') },
+#      content = function(file) {
+#        ggsave(file, plot = thres(), device = "png", width=10, height=7)
+#      }
+#    )
 
 
 
-  observeEvent(input$cleardata, {
-    output$disch_plot=renderPlot({empty()})
+
+#  }) #Observe Event Map/Marker/Table Marker Click finishes
+
+
+
+ observeEvent(input$cleardata, {
+   output$disch_plot=renderPlot({empty()})
   })
 
+
+#
 
   observeEvent(input$cleardata2, {
     output$trendplot=renderPlot({empty()})
@@ -842,7 +844,7 @@ server= function(input, output, session){
 
 
 
-  observeEvent(input$cleardata3, {
+   observeEvent(input$cleardata3, {
     output$thresplot=renderPlot({empty()})
   })
 

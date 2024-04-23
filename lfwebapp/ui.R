@@ -1,22 +1,32 @@
 #install.packages("ggplot2")
-
-
-
+#update.packages("leaflet")
+#install.packages("leaflet")
+#install.packages("ggplot2", dep=T)
+library(ggplot2)
+#install.packages("ggplot2", dep=T)
 library("shinythemes")
-
+library("shiny")
+#install.packages("usethis")
+#install.packages("rmarkdown")
 library(gridExtra)
 library(devtools)
-#install_github("maibrittbergh/lfanalyse")
+library("rmarkdown")
+#install.packages("rmarkdown")
+library(lfanalyse)
+#install.packages("ggpubr")
+library(ggpubr)
+#devtools::install_github("maibrittbergh/lfanalyse")
 library(lfanalyse)
 
-#install_github("maibrittbergh/lfanalyse")
-library(lfanalyse)
 
 library('scico')
+library(dplyr)
 
+library(trend)
+library(Kendall)
+library(zyp)
 library("dichromat")
 #install.packages("knitr")
-
 library(leaflet)
 library(readxl)
 library(sf)
@@ -39,19 +49,18 @@ library(viridisLite)
 library(RColorBrewer)
 
 library(sp)
-library(rgdal)
+#library(rgdal)
 #install.packages("DT")
-
-library(DT) #make sure you load DT after Shiny
-
-#library(dischanalyst)
 library(shinycssloaders)
 library(shinyWidgets)
+library(DT) #make sure you load DT after Shiny
+#devtools::install_github("r-lib/conflicted")
+#library(dischanalyst)
+library(conflicted)
 #install.packages("fontawesome")
 library(fontawesome)
 library(readr)
 library(shinyjs)
-
 
 library(tidyverse)
 library(tigris)
@@ -60,19 +69,17 @@ library(leaflet)
 library(viridis)
 
 library(lfanalyse)
-install.packages("")
+
 library(png)
 
-
 library(ggplot2)
+
+
+library(conflicted)
+
 data=read_rds("metadata.rds")
-nrow(data)
+
 data2=read_rds("dataset.rds")
-path="/Users/maibrittberghofer/Desktop/Arbeit/GRDC_DATA_DOWNLOAD/Downloaded_GRDC_DATA_13_06_23"
-
-data=metadata_grdc(Country = "DE", path=path)
-
-data=metadata_repg(data, mark=T)
 
 
 #delete incomplete measurements
@@ -80,11 +87,8 @@ data=metadata_repg(data, mark=T)
 which(data$station=="BAD SUELZE")
 data=data[-241, ]
 
-
-data2=grdc_reader(data, path)
-
-
-
+datam=data
+#data2=grdc_reader(data, path)
 
 
 #introducinglog10_scaled_Rasterplot
@@ -208,22 +212,22 @@ ui = navbarPage(title="Low Flow Analysis", theme = shinytheme("paper"),
 
                                    tabsetPanel(id="ui_tab",
 
-                                               tabPanel("Map",
-                                                        column(12, h4("Choose a station"), shinycssloaders::withSpinner(leaflet::leafletOutput("map", height="800px"),
-                                                                                                                          size=3, color="#0080b7"))),
+                                              # tabPanel("Map",
+                                                   #     column(12, h4("Choose a station"), shinycssloaders::withSpinner(leaflet::leafletOutput("map", height="800px"),
+                                                                                                                     #     size=3, color="#0080b7"))),
                                                tabPanel("Table",
                                                         column(12, h4("Choose a station"), div(DT::dataTableOutput("table_input"), style = "font-size:70%"))),
 
 
 
-                                               tabPanel("User Guide"
-                                                        ,
+                                            #   tabPanel("User Guide"
+                                               #         ,
 
-                                                       column(12,
-                                                              includeMarkdown("User_Guide.Rmd") #including MArkdown for Users Guide
+                                                 #      column(12,
+                                                   #           includeMarkdown("User_Guide.Rmd") #including MArkdown for Users Guide
 
-                                                       )
-                                               )
+                                                    #   )
+                                               #)
                                    )
                            )),
 
@@ -371,14 +375,11 @@ ui = navbarPage(title="Low Flow Analysis", theme = shinytheme("paper"),
 
                                                   #    )),
 
-                                  conditionalPanel(condition="input.ui_tab='User Guide'",
-                                                   column(10))
+                                #  conditionalPanel(condition="input.ui_tab='User Guide'",
+                                            #       column(10))
 
 
-                           ))),
-
-
-
+                           )))
 
 
 
@@ -396,9 +397,7 @@ ui = navbarPage(title="Low Flow Analysis", theme = shinytheme("paper"),
 
 
 
-                tags$footer(HTML('
-                          <br>
-                         <br>
-                          <p>Author: Mai-Britt Berghöfer <br>
-                          <a href="mailto:berghoefer@uni-potsdam.de">berghoefer@uni-potsdam.de</a></p>'), align = "center"))
+
+
+)
 

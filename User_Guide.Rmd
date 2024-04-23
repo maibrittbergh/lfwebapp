@@ -44,7 +44,7 @@ The map distinguishes the stations in representative stations and stations. This
 
 
 
-![Map option to choose station](/Users/maibrittberghofer/Desktop/Arbeit/WebApp/lfwebapp/the_map.png)
+![Map option to choose station](the_map.png)
 
 
 

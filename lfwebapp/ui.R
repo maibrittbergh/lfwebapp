@@ -1,4 +1,5 @@
 #install.packages("ggplot2")
+
 #update.packages("leaflet")
 #install.packages("leaflet")
 #install.packages("ggplot2", dep=T)
@@ -9,6 +10,18 @@ library("shiny")
 #install.packages("usethis")
 #install.packages("rmarkdown")
 library(gridExtra)
+
+
+
+
+
+
+library("shinythemes")
+
+#install.packages("rmarkdown")
+
+library(grmarkdownlibrary(gridExtra))
+
 library(devtools)
 library("rmarkdown")
 #install.packages("rmarkdown")
@@ -82,13 +95,27 @@ data=read_rds("metadata.rds")
 data2=read_rds("dataset.rds")
 
 
+#path="/Users/maibrittberghofer/Desktop/Arbeit/GRDC_DATA_DOWNLOAD/Downloaded_GRDC_DATA_13_06_23"
+
+#data=metadata_grdc(Country = "DE", path=path)
+
+#data=metadata_repg(data, mark=T)
+
+
+
 #delete incomplete measurements
 
 which(data$station=="BAD SUELZE")
 data=data[-241, ]
 
+
 datam=data
 #data2=grdc_reader(data, path)
+
+
+#data2=grdc_reader(data, path)
+
+
 
 
 #introducinglog10_scaled_Rasterplot

@@ -169,7 +169,7 @@ server= function(input, output, session){
 
 
   Qmin_trend=function(data, station, mod=1) {
-    library(ggplot2)
+
     min_trend=function(data, station, mod= 1) {
 
 

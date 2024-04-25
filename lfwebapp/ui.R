@@ -3,13 +3,13 @@
 #update.packages("leaflet")
 #install.packages("leaflet")
 #install.packages("ggplot2", dep=T)
-library(ggplot2)
+library("ggplot2")
 #install.packages("ggplot2", dep=T)
 library("shinythemes")
 library("shiny")
 #install.packages("usethis")
 #install.packages("rmarkdown")
-library(gridExtra)
+library("gridExtra")
 
 
 
@@ -20,75 +20,73 @@ library("shinythemes")
 
 #install.packages("rmarkdown")
 
-library(grmarkdownlibrary(gridExtra))
+library(grmarkdownlibrary(gridExtra), character.only = TRUE)
 
-library(devtools)
+library("devtools")
 library("rmarkdown")
 #install.packages("rmarkdown")
-library(lfanalyse)
+library("lfanalyse")
 #install.packages("ggpubr")
-library(ggpubr)
+library("ggpubr")
 #devtools::install_github("maibrittbergh/lfanalyse")
-library(lfanalyse)
+
 
 
 library('scico')
-library(dplyr)
+library("dplyr")
 
-library(trend)
-library(Kendall)
-library(zyp)
+library("trend")
+library("Kendall")
+library("zyp")
 library("dichromat")
 #install.packages("knitr")
-library(leaflet)
-library(readxl)
-library(sf)
-library(lfanalyse)
+library("leaflet")
+library("readxl")
+library("sf")
 
-library(dplyr)
-library(ggplot2)
-library(readr)
 
-library(shiny)
-library(shinythemes)
-library(leaflet)
-library(leaflet.providers)
+library("dplyr")
 
-library(zyp)
-library(Kendall)
-library(zoo)
-library(readr)
-library(viridisLite)
-library(RColorBrewer)
+library("readr")
 
-library(sp)
+library("shiny")
+library("shinythemes")
+
+library("leaflet.providers")
+
+library("zyp")
+library("Kendall")
+library("zoo")
+
+
+library("viridisLite")
+library("RColorBrewer")
+
+library("sp")
 #library(rgdal)
-#install.packages("DT")
-library(shinycssloaders)
-library(shinyWidgets)
-library(DT) #make sure you load DT after Shiny
-#devtools::install_github("r-lib/conflicted")
-#library(dischanalyst)
-library(conflicted)
+
+library("shinycssloaders")
+library("shinyWidgets")
+library("shinyjs")
+library("DT") #make sure you load DT after Shiny
+
+library("conflicted")
 #install.packages("fontawesome")
-library(fontawesome)
-library(readr)
-library(shinyjs)
-
-library(tidyverse)
-library(tigris)
-library(leaflet)
-
-library(viridis)
-
-library(lfanalyse)
-
-library(png)
-
-library(ggplot2)
+library("fontawesome")
 
 
-library(conflicted)
+library("tidyverse")
+library("tigris")
+
+
+library("viridis")
+
+
+
+library("png")
+
+
+
 
 data=read_rds("metadata.rds")
 

@@ -1,8 +1,13 @@
-data=data.frame(data)
+datam=data.frame(data)
 
 
 
 server= function(input, output, session){
+
+  data <- readRDS("metadata.rds")
+  data2 <- readRDS("dataset.rds")
+  datam=data.frame(data)
+
 
   U_periodploty=function(data, station, U,year, graph=T){
 
@@ -388,7 +393,7 @@ server= function(input, output, session){
 
   output$table_input <- DT::renderDataTable({
     DT::datatable(
-      data,
+      datam,
       selection = 'single',
       rownames = FALSE,
       colnames = c(

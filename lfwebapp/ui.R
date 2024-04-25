@@ -20,7 +20,8 @@ library("shinythemes")
 
 #install.packages("rmarkdown")
 
-library(grmarkdownlibrary(gridExtra), character.only = TRUE)
+#library("grmarkdownlibrary")
+#library(grmarkdownlibrary(gridExtra), character.only = TRUE)
 
 library("devtools")
 library("rmarkdown")

@@ -5,9 +5,9 @@ account: mbshine
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11559906
-bundleId: 8539694
+bundleId: 8539749
 url: https://mbshine.shinyapps.io/lfwebapp/
-when: 1714035075.32076
-lastSyncTime: 1714035075.32079
+when: 1714036083.11786
+lastSyncTime: 1714036083.11787
 asMultiple: FALSE
 asStatic: FALSE

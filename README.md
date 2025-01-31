@@ -14,16 +14,26 @@ In a next step one can decide on the Analysing tool (right hand side of the map)
 
 <img width="501" alt="Bildschirmfoto 2025-01-31 um 12 04 20" src="https://github.com/user-attachments/assets/29c7f7a8-8432-4e93-9a2a-f353f278c033" />
 
+
+
 ## Low flow analysis 
 To perform a low flow analysis, one can either choose a threshold based analysis or a trend analysis. 
+
+
 
 ### Threshold based analys
 The threshold can be set independently of the measurement series or quantile-based. Quantile-based analysis allows to compare rivers of different sizes with each other. Please choose a year of interest. You can save the plot that you created. 
 
+
+
 <img width="484" alt="Bildschirmfoto 2025-01-31 um 12 08 40" src="https://github.com/user-attachments/assets/6f87ce92-cf89-49d4-a6c2-29e663f39519" />
+
+
 ### Trend analysis 
 The trend analysis covers the entire timespan of the measurement time series. Two different methods are used to calculate the trend. The underlying concepts are explained in the "statistical introduction" (https://github.com/maibrittbergh/statisticalmanual). 
 <img width="503" alt="Bildschirmfoto 2025-01-31 um 12 11 14" src="https://github.com/user-attachments/assets/fd8bd230-d151-4278-b8fb-968d3285ecec" />
+
+
 
 
 ## Resources 
